@@ -1,0 +1,13 @@
+<div id="seznamPredlogov">
+  <p class="naslov">Nedavno poslano</p>
+  <div *ngFor="let predlog of predlogi; let i = index;" id="{{predlog._id}}" class="card" (click)="posreduj(i)" style="margin-bottom: 10px; margin-top: 10px; margin-left: 10px; margin-right: 10px">
+    <div class="card-header">
+      {{predlog.naslov}}
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>{{predlog.vsebina}}</p>
+      </blockquote>
+    </div>
+  </div>
+</div>

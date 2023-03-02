@@ -1,0 +1,55 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Administrator as "<<actor>>\nAdministrator"
+participant objavaView as "<<boundary>>\nobjavaView"
+participant domacaStranAdministratorjaView as "<<boundary>>\ndomacaStranAdministratorjaView"
+participant objavaController as "<<control>>\nobjavaController"
+participant Novica as "<<entity>>\nNovica"
+participant Komentar as "<<entity>>\nKomentar"
+
+Administrator --> objavaView: //Klik na objavo
+activate objavaView
+objavaView --> objavaController: pridobiObjavo()
+activate objavaController
+objavaController --> Novica: pridobiNovico()
+activate Novica
+Novica --> objavaController: //Prikaz zahtevane objave
+deactivate Novica
+objavaController --> objavaView: //Prikaz zahtevane objave
+objavaView --> Administrator: //Prikaz zahtevane objave
+
+alt Prikaz objave iz obvestila Administratorju
+Administrator --> domacaStranAdministratorjaView: //Klik na sporočilo
+activate domacaStranAdministratorjaView
+domacaStranAdministratorjaView --> objavaController: pridobiObjavo()
+deactivate domacaStranAdministratorjaView
+objavaController --> Novica: pridobiNovico()
+activate Novica
+Novica --> objavaController: //Prikaz zahtevane objave
+deactivate Novica
+objavaController --> objavaView: //Prikaz zahtevane objave
+objavaView --> Administrator: //Prikaz zahtevane objave
+end
+
+Administrator --> objavaView: //Klik na komentar z neprimerno vsebino
+objavaView --> Administrator: //Obvestilo za potrditev izbrisa
+Administrator --> objavaView: //Potrditev izbrisa
+objavaView --> objavaController: izbrisiKomentar()
+objavaController --> Komentar: izbrisiKomentar()
+activate Komentar
+deactivate Komentar
+objavaController --> objavaView: //Potrditev izbrisa
+deactivate objavaController
+objavaView --> Administrator: //Potrditev izbrisa
+deactivate objavaView
+@enduml

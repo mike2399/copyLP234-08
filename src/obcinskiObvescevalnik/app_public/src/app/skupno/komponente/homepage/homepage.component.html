@@ -1,0 +1,106 @@
+<div id="glava">
+  <!-- Gumba za prijavo in registracijo, ki se prikazeta, ko je uporabik neprijavljen -->
+  <div id="neprijavljen" *ngIf=!prijavljen>
+    <button [routerLink]="['/registracija']" type="button" class="btn btn-secondary">REGISTRACIJA</button>
+    <button [routerLink]="['/prijava']" type="button" class="btn btn-secondary">PRIJAVA</button>
+  </div>
+
+  <!-- Ikona profila, ki ob kliku prijavljenega uporabnika prenese na nastavitve -->
+  <div id="prijavljen" *ngIf=prijavljen>
+    <a [routerLink]="['/profil']">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Ime občine -->
+  <p>{{obcina?.imeObcine}}</p>
+  <hr>
+
+  <!-- Grb občine -->
+  <div id="grb">
+    <a routerLink="">
+      <span class="circle"></span>
+      <img src="./assets/images/{{obcina?.datObcine}}.jpeg" alt="Grb izbrane obcine.">
+    </a>
+  </div>
+</div>
+
+<div id="vrsticaGumbov">
+  <!-- Gumbi za izbiro vsebine strani -->
+  <div id="izberiStran" class="text-center">
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <!-- Opozorila -->
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked [routerLink]="['opozorila']">
+      <label class="btn btn-outline-secondary" for="btnradio1">
+        Opozorila
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 1 16 16">
+          <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+          <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+        </svg>
+      </label>
+
+
+      <!-- Novice -->
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [routerLink]="['novice']">
+      <label class="btn btn-outline-secondary" for="btnradio2">
+        Novice
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-newspaper" viewBox="0 1 16 16">
+          <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
+          <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
+        </svg>
+      </label>
+
+      <!-- Koledar -->
+      <input *ngIf=obcan||admin||upravnik type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" [routerLink]="['koledar']">
+      <label *ngIf=obcan||admin||upravnik class="btn btn-outline-secondary" for="btnradio3">
+        Koledar
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+          <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+          <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+        </svg>
+      </label>
+
+      <!-- Nabiralnik -->
+      <input *ngIf=admin||izvajalec||upravnik type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" [routerLink]="['nabiralnik']">
+      <label *ngIf=admin||izvajalec||upravnik class="btn btn-outline-secondary" for="btnradio4">
+        Nabiralnik
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 1 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg>
+      </label>
+
+      <!-- Uporabniki -->
+      <input *ngIf=admin type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" [routerLink]="['uporabniki']">
+      <label *ngIf=admin class="btn btn-outline-secondary" for="btnradio5">
+        Uporabniki
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+      </label>
+    </div>
+
+    <button *ngIf=obcan routerLink="/posiljanjePredloga/{{obcina?._id}}" type="button" class="btn btn-secondary novPredlog">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+      </svg>
+      NOVO OBVESTILO
+    </button>
+
+    <button *ngIf=upravnik [routerLink]="['/objavaObvestila']" type="button" class="btn btn-secondary novPredlog">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+      </svg>
+      NOVA OBJAVA
+    </button>
+  </div>
+</div>
+
+<div id="vsebina">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,46 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Upravnik as "<<actor>>\nUpravnik"
+participant domacaStranView as "<<boundary>>\ndomacaStranView"
+participant objavaController as "<<control>>\nobjavaController"
+participant dodajanjeAnketeView as "<<boundary>>\ndodajanjeAnketeView"
+participant Anketa as "<<entity>>\nAnketa"
+Upravnik --> domacaStranView: //Klik na gumb nova objava
+activate domacaStranView
+domacaStranView --> Upravnik: Prikaz spustnega menija za izbiro vrste objave
+Upravnik --> domacaStranView: //Izbor možnosti za dodajanje ankete
+domacaStranView --> objavaController: //Zahtevaj prikaz obrazca za ustvarjanje ankete
+activate objavaController
+objavaController --> dodajanjeAnketeView: //Zahtevaj prikaz obrazca za ustvarjanje ankete
+activate dodajanjeAnketeView
+dodajanjeAnketeView --> Upravnik: Prikazan obrazec za ustvarjanje ankete
+
+Upravnik --> dodajanjeAnketeView: Vnešene podrobnosti nove ankete
+dodajanjeAnketeView --> objavaController: dodajAnketo()
+alt Ustrezen vnos
+objavaController --> Anketa: ustvariAnketo()
+activate Anketa
+Anketa --> objavaController: Podatki o novi anketi
+deactivate Anketa
+objavaController --> domacaStranView: Ustvarjena anketa
+domacaStranView --> Upravnik: Prikazana domača stran, ki vsebuje novo anketo
+else Neustrezno besedilo
+objavaController --> dodajanjeAnketeView: //Zahtevaj prikaz opozorila o neustreznem besedilu
+dodajanjeAnketeView --> Upravnik: Prikazano opozorilo o neustreznem besedilu
+else Premalo možnih odgovorov
+objavaController --> dodajanjeAnketeView: //Zahtevaj prikaz opozorila o premalo možnih odgovorih
+deactivate objavaController
+dodajanjeAnketeView --> Upravnik: Prikazano opozorilo o premalo možnih odgovorih
+deactivate dodajanjeAnketeView
+end
+@enduml

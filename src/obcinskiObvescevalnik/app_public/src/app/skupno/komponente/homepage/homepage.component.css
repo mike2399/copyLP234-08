@@ -1,0 +1,76 @@
+#glava p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 60px;
+  text-align: center;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#glava hr {
+  border-top: 1px solid;
+  margin: 0;
+}
+
+#neprijavljen {
+  position: absolute;
+  right: 10px;
+  margin: 0;
+}
+
+#neprijavljen button {
+  margin-left: 10px;
+}
+
+#prijavljen {
+  position: absolute;
+  right: 15px;
+}
+
+#prijavljen a {
+  color: #333333;
+}
+
+#grb {
+  position: absolute;
+  top: 55px;
+  left: 45px;
+}
+
+#grb .circle {
+  z-index: 0;
+  height: 116px;
+  width: 116px;
+  border: 1px solid #333333;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: white;
+}
+
+#grb img {
+  z-index: 1;
+  position: absolute;
+  left: 18px;
+  top: 19px;
+  height: 80px;
+  width: 80px;
+}
+
+#vrsticaGumbov {
+  align-self: center;
+  margin-top: 25px;
+}
+
+.novPredlog {
+  position: absolute;
+  right: 10px;
+}
+
+#vsebina {
+  border: 1px solid #333333;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 40px;
+  min-height: 65%;
+}

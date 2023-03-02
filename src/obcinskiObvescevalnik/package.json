@@ -1,0 +1,26 @@
+{
+  "name": "obcinskiobvescevalnik",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "engines": {
+    "node": ">=16.9.0",
+    "npm": ">=7.21.1"
+  },
+  "dependencies": {
+    "cookie-parser": "*",
+    "debug": "*",
+    "express": "*",
+    "hbs": "*",
+    "http-errors": "*",
+    "mongoose": "*",
+    "morgan": "*",
+    "express-jwt": "^7.7.1",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.5.3",
+    "passport-local": "^1.0.0"
+
+  }
+}

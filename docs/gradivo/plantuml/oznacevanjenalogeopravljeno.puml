@@ -1,0 +1,53 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Uporabnik as "<<actor>>\nIzvajalec"
+participant domacaStranIzvajalcaView as "<<boundary>>\ndomacaStranIzvajalcaView"
+participant objavaController as "<<control>>\nobjavaController"
+participant posredovanjeView as "<<boundary>>\nposredovanjeView"
+
+participant Predlog as "<<entity>>\nPredlog"
+
+Uporabnik -> domacaStranIzvajalcaView: //Zahtevaj seznam posredovanih predlogov
+activate domacaStranIzvajalcaView
+domacaStranIzvajalcaView -> objavaController: //Zahtevaj seznam predlogov
+activate objavaController
+objavaController -> Predlog: vrniPredloge()
+activate Predlog
+Predlog --> objavaController: Seznam predlogov
+deactivate Predlog
+objavaController --> domacaStranIzvajalcaView: Seznam predlogov
+domacaStranIzvajalcaView --> Uporabnik: Prikaz seznama predlogov
+
+Uporabnik -> domacaStranIzvajalcaView: //Zahtevaj prikaz izbranega posredovanega obvestila
+domacaStranIzvajalcaView -> posredovanjeView: //Zahtevaj prikaz izbranega\n posredovanega obvestila
+deactivate domacaStranIzvajalcaView
+activate posredovanjeView
+posredovanjeView --> Uporabnik: Prikaz izbranega obvestila
+
+Uporabnik -> posredovanjeView: //Zahtevaj označevanje naloge\n kot opravljeno
+posredovanjeView --> Uporabnik: //Prikaz okna za potrditev posredovanja obvestila
+
+alt Potrditev posredovanja
+Uporabnik -> posredovanjeView: //Zahtevaj potrditev posredovanja obvestila
+posredovanjeView --> objavaController: //Zahtevaj posredovanje obvestila
+objavaController --> objavaController: posredujUpravniku()
+objavaController -> posredovanjeView: //Zahtevaj prikaz opozorila o\nuspešnem posredovanju
+posredovanjeView --> Uporabnik: Prikaz obvestila o uspešnem posredovanju
+
+else Preklic posredovanja
+Uporabnik -> posredovanjeView: //Zahtevaj preklic posredovanja obvestila
+posredovanjeView --> Uporabnik: Prikaz prvotnega obvestila
+end
+deactivate posredovanjeView
+deactivate objavaController
+@enduml

@@ -1,0 +1,34 @@
+<div id="upravnikNastavitve">
+  <p>Nastavitve profila</p>
+
+  <div class="row g-3 podatki">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="imeObcine" value="{{upravnik?.imeObcine}}" placeholder="Občina Ajdovščina">
+        <label for="imeObcine">Ime občine</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="emailObcine" value="{{upravnik?.email}}" placeholder="obcina.ajdovscina@gmail.com">
+        <label for="emailObcine">Email</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="uporabniskoObcine" value="{{upravnik?.uporabniskoIme}}" placeholder="Občina Ajdovščina">
+        <label for="uporabniskoObcine">Uporabniško ime</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="gesloObcine" placeholder="OAjd123">
+        <label for="gesloObcine">Geslo</label>
+      </div>
+    </div>
+    <div class="col-md-12 text-center">
+      <button id="posodobi" type="button" class="btn btn-outline-secondary" (click)="posodobi()">POSODOBI</button>
+    </div>
+  </div>
+
+</div>

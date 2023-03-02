@@ -1,0 +1,57 @@
+#vrsticaLogo p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 60px;
+  text-align: center;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#vrsticaLogo hr {
+  border-top: 1px solid;
+  margin: 0;
+}
+
+#seznamObcin {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#seznamObcin p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+#seznamObcin a {
+  color: black;
+  text-decoration: none;
+}
+
+#pomoc {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  margin: 0;
+}
+
+#pomoc .sporocilo {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+
+  bottom: 120%;
+  left: 40%;
+  margin-left: -100px;
+}
+
+#pomoc:hover .sporocilo {
+  visibility: visible;
+}

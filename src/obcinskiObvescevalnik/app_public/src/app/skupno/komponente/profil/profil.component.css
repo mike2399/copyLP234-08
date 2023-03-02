@@ -1,0 +1,29 @@
+#zgornjaVrstica p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 40px;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+#zgornjaVrstica button {
+  position: absolute;
+  margin: 0;
+  top: 22px;
+  right: 20px;
+}
+
+#izbrisRacuna {
+  position: absolute;
+  left: 20px;
+}
+
+#odjava {
+  position: absolute;
+  right: 20px;
+}
+
+#gumbi {
+  padding-bottom: 50px;
+}

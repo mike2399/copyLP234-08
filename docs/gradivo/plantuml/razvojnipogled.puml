@@ -1,0 +1,53 @@
+@startuml
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam ArrowColor black
+skinparam component {
+  backgroundcolor #e8f5fd
+  backgroundcolor<<subsystem>> white
+  bordercolor #5FB8EC
+}
+skinparam interface {
+  backgroundcolor #e8f5fd
+  bordercolor #5FB8EC
+}
+
+left to right direction
+
+
+
+interface ui as "<<interface>>\nUporabniški\nvmesnik"
+interface uporabnikvmesnik as "<<interface>>\nPovezava do baze"
+interface objavavmesnik as "<<interface>>\nPovezava do baze"
+
+component view as "<<subsystem>>\nPogledi" {
+  component objavaView as"<<component>>\nPogledi z objavami" 
+  component uporabnikView as"<<component>>\nPogledi z uporabniki"
+  component auth as "<<component>>\nAvtentikacija"
+}
+
+component controller as "<<subsystem>>\nKontrolerji" {
+component uporabnikController as "<<component>>\nKontroler uporabnikov"
+component objavaController as "<<component>>\nKontroler objav"
+}
+
+component uporabnikdb as "<<subsystem>>\nBaza uporabnikov"{
+component uporabnikModel as "<<component>>\nModeli uporabnikov"
+}
+component objavadb as "<<subsystem>>\nBaza objav"{
+component objavaModel as "<<component>>\nModeli objav"
+}
+
+component calendarAPI as "<<external>>\ncalendarAPI"
+component leafletAPI as "<<external>>\nleafletAPI"
+
+
+objavaController <--> objavavmesnik
+uporabnikController <--> uporabnikvmesnik
+objavavmesnik <-> objavaModel
+uporabnikvmesnik <-> uporabnikModel
+controller <--> calendarAPI
+controller <--> leafletAPI
+ui --->view
+view <-> controller
+@enduml

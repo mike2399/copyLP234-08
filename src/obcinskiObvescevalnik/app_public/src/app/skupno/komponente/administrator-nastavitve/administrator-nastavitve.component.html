@@ -1,0 +1,64 @@
+<div id="administratorNastavitve">
+  <p>Nastavitve profila</p>
+
+  <div class="row g-3 podatki">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="imeAdmin" value="{{admin?.ime}}" placeholder="Janez">
+        <label for="imeAdmin">Ime</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="priimekAdmin" value="{{admin?.priimek}}" placeholder="Novak">
+        <label for="priimekAdmin">Priimek</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="uporabniskoAdmin" value="{{admin?.uporabniskoIme}}" placeholder="JNovak">
+        <label for="uporabniskoAdmin">Uporabniško ime</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="gesloAdmin" placeholder="jn1234">
+        <label for="gesloAdmin">Geslo</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="emailAdmin" value="{{admin?.email}}" placeholder="janez.novak@gmail.com">
+        <label for="emailAdmin">Email</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="date" class="form-control" value="{{admin!!.rojstvo | datum}}" id="rojstvoAdmin">
+        <label for="rojstvoAdmin">Datum rojstva</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+        <select class="form-select" id="dodajObcinoAdmin" aria-label="Floating label select example">
+          <option value="null" selected></option>
+          <option *ngFor="let obcina of obcine" value="{{obcina._id}}">{{obcina.imeObcine}}</option>
+        </select>
+        <label for="dodajObcinoAdmin">Dodaj občino</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+        <select class="form-select" id="odstraniObcinoAdmin" aria-label="Floating label select example">
+          <option value="null" selected></option>
+          <option *ngFor="let obcina of obcineAdmin" value="{{obcina._id}}">{{obcina.imeObcine}}</option>
+        </select>
+        <label for="odstraniObcinoAdmin">Odstrani občino</label>
+      </div>
+    </div>
+    <div class="col-md-12 text-center">
+      <button id="posodobi" type="button" class="btn btn-outline-secondary" (click)="posodobi()">POSODOBI</button>
+    </div>
+  </div>
+
+</div>

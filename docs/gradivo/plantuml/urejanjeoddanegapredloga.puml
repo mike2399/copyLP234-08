@@ -1,0 +1,48 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor PrijavljeniObcan as "<<actor>>\nPrijavljeni občan"
+participant nastavitveProfilaObcanaView as "<<boundary>>\nnastavitveProfilaObcanaView"
+participant pregledPredlogaView as "<<boundary>>\npregledPredlogaView"
+participant objavaController as "<<control>>\nobjavaController"
+participant Predlog as "<<entity>>\nPredlog"
+
+PrijavljeniObcan --> nastavitveProfilaObcanaView: //Zahtevaj seznam oddanih predlogov
+activate nastavitveProfilaObcanaView
+nastavitveProfilaObcanaView --> PrijavljeniObcan: //Seznam oddanih predlogov prijavljenega občana
+activate pregledPredlogaView
+PrijavljeniObcan --> pregledPredlogaView: //Zahtevaj podrobnosti izbranega predloga
+activate objavaController
+pregledPredlogaView --> objavaController: vrniPredlog()
+activate Predlog
+objavaController --> Predlog: //Pridobi podrobnosti predloga iz baze
+Predlog --> objavaController: //Podrobnosti izbranega predloga
+objavaController --> pregledPredlogaView: //Podrobnosti izbranega predloga
+pregledPredlogaView --> PrijavljeniObcan: //Prikaži obrazec za urejanje
+
+PrijavljeniObcan --> pregledPredlogaView: //Zahtevaj spremembo predloga
+pregledPredlogaView --> objavaController: // Shrani predlog
+alt Ustrezen vnos
+objavaController --> Predlog: urediPredlog()
+Predlog --> objavaController: Podrobnosti urejenega predloga
+deactivate Predlog
+
+objavaController --> nastavitveProfilaObcanaView: Podrobnosti urejenega predloga
+nastavitveProfilaObcanaView --> PrijavljeniObcan: // Prikaži posodobljen seznam predlogov
+else neustrezen vnos
+objavaController --> pregledPredlogaView: //Zahtevaj prikaz opozorila o neustreznem vnosu
+pregledPredlogaView --> PrijavljeniObcan: //Opozori prijavljenega občana o neustreznem vnosu
+deactivate pregledPredlogaView
+end
+deactivate objavaController
+deactivate nastavitveProfilaObcanaView
+@enduml

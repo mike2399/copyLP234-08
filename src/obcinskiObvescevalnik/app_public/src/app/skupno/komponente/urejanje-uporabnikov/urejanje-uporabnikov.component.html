@@ -1,0 +1,18 @@
+<table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">Ime</th>
+      <th scope="col">Priimek</th>
+      <th scope="col">Uporabniško ime</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let upr of uporabniki; let i = index;" (click)="blokiraj(i)">
+      <th>{{upr.ime}}</th>
+      <td>{{upr.priimek}}</td>
+      <td>{{upr.uporabniskoIme}}</td>
+      <td>{{upr.email}}</td>
+    </tr>
+  </tbody>
+</table>

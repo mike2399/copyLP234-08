@@ -1,0 +1,79 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Uporabnik as "<<actor>>\nUpravnik"
+participant domacaStranView as "<<boundary>>\ndomacaStranView"
+participant uporabnikController as "<<control>>\nuporabnikController"
+participant objavaController as "<<control>>\nobjavaController"
+participant pregledPredlogaView as "<<boundary>>\npregledPredlogaView"
+
+participant Obcina as "<<entity>>\nObcina"
+participant IZvajalec as "<<entity>>\nIzvajalec"
+
+Uporabnik -> domacaStranView: //Klik na zavihek nabiralnik
+activate domacaStranView
+domacaStranView -> uporabnikController: //Zahtevaj seznam predlogov
+activate uporabnikController
+uporabnikController -> Obcina: vsiPredlogi()
+activate Obcina
+Obcina --> uporabnikController: pridobiVsePredloge()
+deactivate Obcina
+uporabnikController --> domacaStranView: Seznam predlogov
+deactivate uporabnikController
+domacaStranView --> Uporabnik: Prikazan seznam predlogov
+
+Uporabnik -> domacaStranView: //Klik na predlog
+domacaStranView -> objavaController: //Zahtevaj podrobnosti predloga
+activate objavaController
+objavaController -> pregledPredlogaView: //Zahtevaj prikaz podrobnosti predloga
+activate pregledPredlogaView
+pregledPredlogaView --> Uporabnik: Prikazana stran z podrobnostmi predloga
+deactivate domacaStranView
+deactivate objavaController
+
+Uporabnik -> pregledPredlogaView: //Izberi možnost posreduj
+pregledPredlogaView --> uporabnikController: //Zahtevaj seznam izvajalcev
+activate uporabnikController
+uporabnikController -> Obcina: vsiIzvajalci()
+activate Obcina
+Obcina --> uporabnikController: pridobiVseIzvajalce()
+deactivate Obcina
+uporabnikController -> pregledPredlogaView: Seznam izvajalcev
+deactivate uporabnikController
+pregledPredlogaView --> Uporabnik: //Prikazan seznam izvajalcev
+
+alt Uspešno posredovanje
+Uporabnik -> pregledPredlogaView: //Izbira izvajalcev in potrditev pošiljanja
+pregledPredlogaView --> uporabnikController: //Zahtevaj pošiljanje predloga izvajalcu
+activate uporabnikController
+uporabnikController -> uporabnikController: // preveriPrejemnike()
+uporabnikController -> Izvajalec: posljiPredloge()
+activate Izvajalec
+Izvajalec --> uporabnikController: dodajPredloge()
+deactivate Izvajalec
+uporabnikController -> pregledPredlogaView: Poslani predlogi
+pregledPredlogaView --> Uporabnik: Obvestilo o uspešnem posredovanju
+
+else Preklic posredovanja
+Uporabnik -> pregledPredlogaView: //Preklic pošiljanja
+pregledPredlogaView --> Uporabnik: Prikazana stran z podrobnostmi predloga
+
+else Neuspešno posredovanje
+Uporabnik -> pregledPredlogaView: //Izbira izvajalcev in potrditev pošiljanja
+pregledPredlogaView --> uporabnikController: //Zahtevaj pošiljanje predloga izvajalcu
+uporabnikController -> uporabnikController: // preveriPrejemnike()
+uporabnikController -> pregledPredlogaView: //Zahtevaj prikaz opozorila o neustreznih prejemnikih
+pregledPredlogaView --> Uporabnik: Prikaz opozorila
+
+end
+
+@enduml 

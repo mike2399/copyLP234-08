@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor NU as "<<actor>>\nNeprijavljeniUporabnik"
+participant domacaStranView as "<<boundary>>\ndomacaStranView"
+participant uporabnikController as "<<control>>\nuporabnikController"
+participant prijavaView as "<<boundary>>\nPrijavaView"
+
+NU --> domacaStranView: //Klik na gumb Prijava
+activate domacaStranView
+domacaStranView --> uporabnikController: //Zahtevaj prikaz obrazca za prijavo v sistem
+activate uporabnikController
+uporabnikController --> prijavaView: //Zahtevaj prikaz obrazca za prijavo v sistem
+activate prijavaView
+prijavaView --> NU: Prikazan obrazec za prijavo v sistem
+
+NU --> prijavaView: Vnešena email in geslo
+prijavaView --> uporabnikController: prijava()
+alt Pravilen email in geslo
+uporabnikController --> uporabnikController: validiraj geslo uporabnika
+uporabnikController --> prijavaView: Sprejeta email in geslo
+prijavaView --> domacaStranView: //Preusmeritev na domačo stran
+else Napačen email in geslo
+uporabnikController --> prijavaView: Zavrnejena email in geslo
+prijavaView --> NU: Prikazano sporočilo o napačenem emailu in geslu
+deactivate prijavaView
+end
+@enduml

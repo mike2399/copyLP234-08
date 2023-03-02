@@ -1,0 +1,57 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Uporabnik as "<<actor>>\nPrijavljeni občan, Administrator"
+participant domacaStranView as "<<boundary>>\ndomacaStranView"
+participant objavaController as "<<control>>\nobjavaController"
+participant uporabnikController as "<<control>>\nuporabnikController"
+participant anketaView as "<<boundary>>\nanketaView"
+
+participant Anketa as "<<entity>>\nAnketa"
+
+Uporabnik -> domacaStranView: //Klik na anketo
+activate domacaStranView
+domacaStranView -> objavaController: //Zahtevaj prikaz ankete
+activate objavaController
+objavaController -> anketaView: //Zahtevaj prikaz ankete
+activate anketaView
+anketaView --> Uporabnik: Prikaz ankete
+deactivate objavaController
+deactivate domacaStranView
+
+alt Uspešna oddaja glasu
+Uporabnik -> anketaView: //Zahtevaj oddajo odgovora in potrdi vnos
+anketaView -> uporabnikController: //Zahtevaj oddajo odgovora
+activate uporabnikController
+uporabnikController -> uporabnikController: preveriUstreznost()
+uporabnikController -> Anketa: glasujNaAnketi()
+activate Anketa
+Anketa --> uporabnikController: //Zabelezen glas
+deactivate Anketa
+uporabnikController --> anketaView: //obvestilo o oddanem glasu
+deactivate uporabnikController
+anketaView --> Uporabnik: Prikaz obvestila o uspešno oddanem glasu
+
+else Poskus oddaje glasu brez izbranega odgovora
+Uporabnik -> anketaView: //Zahtevaj oddajo glasu in potrdi vnos
+anketaView -> uporabnikController: //Zahtevaj oddajo odgovora
+activate uporabnikController
+uporabnikController -> uporabnikController: preveriUstreznost()
+uporabnikController --> anketaView: Obvestilo o manjkajočem odgovoru
+deactivate uporabnikController
+anketaView --> Uporabnik: Prikaz obvestila o manjkajočem odgovoru
+
+else Brez potrditve vnosa
+Uporabnik -> anketaView: //Zahtevaj preklic postopka oddaje predloga
+anketaView --> Uporabnik: Prikaz ankete
+end
+@enduml

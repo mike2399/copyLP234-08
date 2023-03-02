@@ -1,0 +1,134 @@
+@startuml
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam usecase {
+  backgroundColor white
+  borderColor #5FB8EC
+  arrowColor black
+}
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+
+left to right direction
+
+actor "Prijavljen občan" AS PO 
+actor "Neprijavljen uporabnik" AS NPO
+actor "Izvajalec" AS I
+actor "Administrator" AS A
+actor "Upravnik" AS UO
+actor "Leaflet" AS ZE
+actor "Google Koledar" AS KO
+
+
+rectangle "Legenda" {
+
+  usecase "SHOULD HAVE"  #Technology
+  usecase "MUST HAVE" #pink
+  usecase "COULD HAVE" #Strategy
+  usecase "WOULD HAVE" #Business
+  
+}
+
+
+rectangle "Občinski obveščevalnik" {
+
+  usecase "Dodeljevanje vloge uporabnika" AS REG_NOV #Technology
+  usecase "Pregled uporabnikov" AS P_UPORAB #pink
+  usecase "Blokiranje uporabnika" AS BLOCK #Strategy
+  usecase "Izbris objave" AS IZBRIS #Strategy
+  usecase "Ogled komentarjev" AS OGL_KOM  #Technology
+  usecase "Sortiranje" AS S #Business
+  usecase "Iskanje po nizu" AS IPN #Business
+  usecase "Prebiranje predlogov in komentarjev" AS PRE_PRED #pink
+  usecase "Prebiranje opozoril in novic občine" AS PRE_OB #pink
+  usecase "Prebiranje rezultatov javnih anket" AS PRE_ANKET #pink
+  usecase "Komentiranje objave" AS KOM #Technology
+   usecase "Urejanje profila" AS UR_PROF #Technology
+   usecase "Ogled profila" AS PROFIL #pink
+  usecase "Registracija" AS REG #pink
+  usecase "Izbira občine" AS IZBIRA #pink
+  usecase "Glasovanje na anketi" AS GLAS #pink
+   usecase "Ogled profila" AS PROFIL #pink
+   usecase "Pošiljanje obvestil" AS PRITOŽBE #pink
+   usecase "Ogled oddanih obvestil" AS OOP #pink
+  usecase "Urejanje oddanega obvestila" AS UR_PR #Technology
+  usecase "Prijava neprimernih komentarjev" AS PRIJAVA_KOM #Strategy
+  usecase "Prijava" AS PRI #pink
+  usecase "Sortiranje" AS S #Business
+  usecase "Iskanje po nizu" AS IPN #Business
+ usecase "Pregled novic in opozoril" AS PDOG #pink
+ usecase "Ustvarjanje ankete" AS US_ANK #pink
+ usecase "Dodajanje dogodka na koledar" AS DDNK #Technology
+ usecase "Pregled anket" AS P_ANK #pink
+ usecase "Pregled poslanih obvestil" AS P_PRED #pink
+ usecase "Posredovanje obvestila izvajalcu" AS POI #pink
+ usecase "Pregled posredovanih objav" AS  P_P_O #pink
+usecase "Označevanje naloge kot narejeno" AS ONKN #Technology
+
+  I -down-> (P_P_O) #purple
+  (P_P_O) ..> (ONKN) : <<extend>> 
+
+ 
+
+
+ UO -down-> (PDOG) #orange
+  UO -down-> (PROFIL) #orange
+  UO -down-> (DDNK) #orange
+  UO -down-> (US_ANK) #orange
+  UO -down-> (P_ANK) #orange
+  UO -down-> (P_PRED) #orange
+  (DDNK) ---> KO
+  (P_PRED) ..> (POI) : <<extend>>
+  UO -down-> (IZBIRA) #orange
+  UO -down-> (PRE_PRED) #orange
+  UO -down-> (PRE_OB) #orange
+  UO -down-> (PRE_ANKET) #orange
+  UO -down-> (S) #orange
+  UO -down-> (OGL_KOM) #orange
+ 
+
+
+PO -down-> (IZBIRA) #green
+  PO -down-> (PRE_PRED) #green
+  PO -down-> (PRE_OB) #green
+  PO -down-> (PRE_ANKET) #green
+  PO -down-> (PROFIL) #green
+  PO -down-> (OOP) #green
+  (PRITOŽBE) ---> ZE
+  (OOP) ..> (UR_PR) : <<extend>>
+  PO -down-> (PRITOŽBE) #green
+  PO -down-> (KOM) #green
+  PO -down-> (GLAS) #green
+  PO -down-> (OGL_KOM) #green
+  (OGL_KOM) ..> (PRIJAVA_KOM) : <<extend>>
+  PO -down-> (S) #green
+  
+   NPO -down-> (PRI) #blue
+  NPO -down-> (REG) #blue
+  NPO -down-> (IZBIRA) #blue
+  NPO -down-> (PRE_PRED) #blue
+  NPO -down-> (PRE_OB) #blue
+  NPO -down-> (PRE_ANKET) #blue
+  NPO -down-> (S) #blue
+  NPO -down-> (OGL_KOM) #blue
+  
+  
+  A -down-> (IZBIRA) #red
+  A -down-> (P_UPORAB) #red
+  (P_UPORAB) ..> (BLOCK) : <<extend>> 
+  (P_UPORAB) ..> (IZBRIS) : <<include>> 
+  (P_UPORAB) ..> (REG_NOV) : <<extend>> 
+  A -down-> (KOM) #red
+  A -down-> (GLAS) #red
+  A -down-> (PRE_PRED) #red
+  A -down-> (PRE_OB) #red
+  A -down-> (OGL_KOM) #red
+  A -down-> (IPN) #red
+  A -down-> (S) #red
+  A -down-> (PRE_ANKET) #red
+  A -down-> (PROFIL) #red
+  (PROFIL) ..> (UR_PROF) : <<extend>>
+  
+  
+}
+@enduml

@@ -1,0 +1,64 @@
+<div id="nastavitveObcan">
+  <p>Nastavitve profila</p>
+
+  <div class="row g-3 podatki">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="imeObcana" value="{{obcan?.ime}}" placeholder="Janez">
+        <label for="imeObcana">Ime</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="priimekObcana" value="{{obcan?.priimek}}" placeholder="Novak">
+        <label for="priimekObcana">Priimek</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="uporabniskoObcana" value="{{obcan?.uporabniskoIme}}" placeholder="JNovak">
+        <label for="uporabniskoObcana">Uporabniško ime</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="gesloObcana" placeholder="jn1234">
+        <label for="gesloObcana">Geslo</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="emailObcana" value="{{obcan?.email}}" placeholder="janez.novak@gmail.com">
+        <label for="emailObcana">Email</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="date" class="form-control" value="{{obcan!!.rojstvo | datum}}" id="rojstvoObcana">
+        <label for="rojstvoObcana">Datum rojstva</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+        <select class="form-select" id="dodajObcino" aria-label="Floating label select example">
+          <option value=null selected></option>
+          <option *ngFor="let obcina of obcine" value="{{obcina._id}}">{{obcina.imeObcine}}</option>
+        </select>
+        <label for="dodajObcino">Dodaj občino</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+        <select class="form-select" id="odstraniObcino" aria-label="Floating label select example">
+          <option value=null selected></option>
+          <option *ngFor="let obcina of obcineObcan" value="{{obcina._id}}">{{obcina.imeObcine}}</option>
+        </select>
+        <label for="odstraniObcino">Odstrani občino</label>
+      </div>
+    </div>
+    <div class="col-md-12 text-center">
+      <button id="posodobi" type="button" class="btn btn-outline-secondary" (click)="posodobi()">POSODOBI</button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,138 @@
+.map-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  right: 0;
+  bottom: 10%;
+  margin: 35px;
+}
+
+.map-frame {
+  border: 2px solid black;
+  height: 90%;
+}
+
+#map {
+  height: 100%;
+}
+textarea {
+  height: 100%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+form {
+  margin-left: 20px;
+  margin-top: 70px;
+}
+
+#glava p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 60px;
+  text-align: center;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#glava hr {
+  border-top: 1px solid;
+  margin: 0;
+}
+
+#neprijavljen {
+  position: absolute;
+  right: 10px;
+  margin: 0;
+}
+
+#neprijavljen button {
+  margin-left: 10px;
+}
+
+#prijavljen {
+  position: absolute;
+  right: 15px;
+}
+
+#prijavljen a {
+  color: #333333;
+}
+
+#grb {
+  position: absolute;
+  top: 55px;
+  left: 45px;
+}
+
+#grb .circle {
+  z-index: 0;
+  height: 116px;
+  width: 116px;
+  border: 1px solid #333333;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: white;
+}
+
+#grb img {
+  z-index: 1;
+  position: absolute;
+  left: 18px;
+  top: 19px;
+  height: 80px;
+  width: 80px;
+}
+
+#nazaj {
+  position: absolute;
+  margin-top: 10px;
+  right: 10px;
+}
+#vsebina {
+  border: 1px solid #333333;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 70px;
+  height: 65%;
+}
+
+#grb {
+  position: absolute;
+  top: 55px;
+  left: 45px;
+}
+
+#grb .circle {
+  z-index: 0;
+  height: 116px;
+  width: 116px;
+  border: 1px solid #333333;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: white;
+}
+
+#grb img {
+  z-index: 1;
+  position: absolute;
+  left: 18px;
+  top: 19px;
+  height: 80px;
+  width: 80px;
+}
+#glava p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 60px;
+  text-align: center;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#glava hr {
+  border-top: 1px solid;
+  margin: 0;
+}

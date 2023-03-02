@@ -1,0 +1,39 @@
+version: "3.5"
+
+services:
+  node-api:
+    container_name: obcinski-obvescevalnik-app
+    restart: always
+    ports:
+      - "3000:3000"
+    image: obcinski-obvescevalnik-node-js
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=docker
+    command: "npm start"
+    networks:
+      - tpo-network
+  mongo-db1:
+    image: mongo
+    container_name: obcinski-obvescevalnik-mongodb1
+    ports:
+      - "27017:27017"
+    networks:
+      - tpo-network
+  mongo-db2:
+    image: mongo
+    container_name: obcinski-obvescevalnik-mongodb2
+    ports:
+      - "27018:27017"
+    networks:
+      - tpo-network
+
+networks:
+  tpo-network:
+    name: tpo-network
+    driver: bridge

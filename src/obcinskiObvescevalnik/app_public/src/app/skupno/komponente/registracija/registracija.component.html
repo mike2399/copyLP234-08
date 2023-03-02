@@ -1,0 +1,135 @@
+<div id="vrsticaLogo">
+  <p>Občinski Obveščevalnik</p>
+  <hr />
+</div>
+<div id="slikice" class="d-flex justify-content-center">
+  <div class="container">
+    <div class="row">
+      <div
+        class="nav-item justify-content-center border d-flex w-50 font border text-center display-5 unselected"
+        onclick="location.href='./prijava';"
+      >
+        Prijava
+      </div>
+      <div
+        class="nav-item justify-content-center selected border d-flex w-50 font border selected text-center display-5"
+      >
+        Registracija
+      </div>
+    </div>
+    <div class="row">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title font font-weight-bold display-3">
+            Registracija
+          </h5>
+          <form>
+            <div class="container">
+              <div class="row mt-2">
+                <div class="col">
+                  <div class="form-group row-lg-5">
+                    <label class="fw-bold" for="nameInput">Ime:</label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      id="nameInput"
+                      placeholder="name"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group row-lg-5">
+                    <label class="fw-bold" for="surnameInput">Priimek:</label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      id="surnameInput"
+                      placeholder="surname"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <div class="form-group row-lg-5">
+                    <label class="fw-bold" for="usernameInput"
+                      >Uporabniško ime:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      id="usernameInput"
+                      placeholder="username"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group row-lg-5">
+                    <label class="fw-bold" for="emailInput"
+                      >Elektronski naslov:</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control text-center"
+                      id="emailInput"
+                      placeholder="email"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <div class="form-group row-lg-5">
+                    <label class="fw-bold" for="passwordInput">Geslo:</label>
+                    <input
+                      type="password"
+                      class="form-control text-center"
+                      id="passwordInput"
+                      placeholder="password"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group row-lg-5">
+                    <label class="fw-bold" for="passwordReInput"
+                      >Ponovi geslo:</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control text-center"
+                      id="passwordReInput"
+                      placeholder="password"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <label class="fw-bold">Izberite občino:</label>
+                  <select id="dropdown" class="form-select" aria-label="Default select example">
+                    <option selected value="">Izberite občino</option>
+                    <option *ngFor="let obcina of obcine" value="{{obcina.imeObcine}}">{{obcina.imeObcine}}</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <button
+                    id="knofPrijava"
+                    class="border mt-3 btn btn-secondary"
+                    type="button"
+                    (click)="buttonPress()"
+                  >
+                    REGISTRACIJA
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div id="opozorilo" class="alert alert-warning mt-3" role="alert" style="visibility:hidden">
+              Prosim, izpolnite vsa polja!
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-muted">Izpolnite vsa polja.</div>
+      </div>
+    </div>
+  </div>
+</div>

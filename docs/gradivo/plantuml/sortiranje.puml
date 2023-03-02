@@ -1,0 +1,53 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Administrator <<actor>>
+participant "domacaStranView" as domacaStran <<boundary>>
+participant "uporabnikController" as controller <<control>>
+participant "PrijavljenObcan" as obcan <<entity>>
+
+Administrator -> domacaStran: // Zahtevaj podokno z uporabniki
+activate Administrator
+activate domacaStran
+domacaStran -> controller: // Zahtevaj seznam uporabnikov
+activate controller
+controller -> obcan: pridobiVse()
+activate obcan
+controller <-- obcan: uporabniki: prijavljenUporabnik[]
+deactivate obcan
+domacaStran <-- controller: // Seznam uporabnikov
+deactivate controller
+Administrator <-- domacaStran: // Prikazan neurejen seznam uporabnikov
+deactivate domacaStran
+deactivate Administrator
+
+
+Administrator -> domacaStran: // Novo sortiranje v uporabniškem oknu
+activate Administrator
+
+loop za vsako posamezno sortiranje
+activate domacaStran
+domacaStran -> controller: // Izberi željen vrstni red
+activate controller
+controller -> obcan: pridobiVse()
+activate obcan
+controller <-- obcan: uporabniki: prijavljenUporabnik[]
+controller --> controller: urediVrsto(vrstniRed, uporabniki)
+deactivate obcan
+domacaStran <-- controller: Seznam urejenih uporabnikov
+deactivate controller
+end
+
+Administrator <-- domacaStran: // Prikazan pravilen vrstni red uporabnikov
+deactivate domacaStran
+deactivate Administrator
+@enduml

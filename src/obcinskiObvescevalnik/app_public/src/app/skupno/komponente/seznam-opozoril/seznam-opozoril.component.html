@@ -1,0 +1,10 @@
+<div class="card" style="margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;" *ngFor="let opozorilo of opozorila" >
+  <div class="card-header">
+    {{opozorilo.naslov}}
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{opozorilo.vsebina}}</p>
+    </blockquote>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+@startuml
+hide empty members
+left to right direction
+
+'Entitetni razredi
+class neprijavljenObcan <<entity>>
+class PrijavljenObcan <<entity>>
+class Izvajalec <<entity>>
+class Administrator <<entity>>
+class Obcina <<entity>>
+class Objava <<entity>>
+class Predlog <<entity>>
+class Anketa <<entity>>
+class Naloga <<entity>>
+class Upravnik <<entity>>
+
+'Mejni razredi
+class izbiraObcineView <<boundary>>
+class domacaStranView <<boundary>>
+class domacaStranIzvajalcaView <<boundary>>
+class registracijaView <<boundary>>
+class prijavaView <<boundary>>
+class anketaView <<boundary>>
+class koledarView <<boundary>>
+class dodajanjeKoledarView <<boundary>>
+class dodajanjeAnketeView <<boundary>>
+class kreiranjePredlogaView <<boundary>>
+class nastavitveProfilaObcanaView <<boundary>>
+class nastavitveProfilaUpravnikaView <<boundary>>
+class nastavitveProfilaIzvajalcaView <<boundary>>
+class objavaView <<boundary>>
+class posredovanjeView <<boundary>>
+
+
+'kontrolni razredi
+class uporabnikController <<control>>
+class objavaController <<control>>
+
+
+'zunanji razredi
+class calendarAPI <<api>>
+class leafletAPI <<api>>
+
+
+'uporabnikController
+uporabnikController -> PrijavljenObcan
+uporabnikController -> Izvajalec
+uporabnikController -> Upravnik
+uporabnikController -> Administrator
+uporabnikController -> Obcina
+uporabnikController --> izbiraObcineView
+uporabnikController --> domacaStranView
+uporabnikController --> domacaStranIzvajalcaView
+uporabnikController --> registracijaView
+uporabnikController --> prijavaView
+uporabnikController --> nastavitveProfilaObcanaView
+uporabnikController --> nastavitveProfilaIzvajalcaView
+uporabnikController --> nastavitveProfilaUpravnikaView
+
+
+
+'objavaController
+objavaController -> Objava
+objavaController -> Predlog
+objavaController -> Anketa
+objavaController -> Naloga
+objavaController --> anketaView
+objavaController --> koledarView
+objavaController --> dodajanjeKoledarView
+objavaController --> dodajanjeAnketeView
+objavaController --> kreiranjePredlogaView
+objavaController --> pregledPredlogaView
+objavaController --> objavaView
+objavaController --> posredovanjeView
+objavaController ---> leafletAPI
+objavaController ---> calendarAPI
+objavaController --> nastavitveProfilaObcanaView
+objavaController --> nastavitveProfilaIzvajalcaView
+objavaController --> nastavitveProfilaUpravnikaView
+@enduml

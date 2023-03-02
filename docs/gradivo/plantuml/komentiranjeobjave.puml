@@ -1,0 +1,49 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Uporabnik as "<<actor>>\nPrijavljeni občan, Administrator, Upravnik"
+participant domacaStranView as "<<boundary>>\ndomacaStranView"
+participant objavaController as "<<control>>\nobjavaController"
+participant objavaView as "<<boundary>>\nobjavaView"
+
+participant Objava as "<<entity>>\nObjava"
+
+
+Uporabnik --> domacaStranView: //Zahtevaj prikaz seznama objav
+activate domacaStranView
+domacaStranView --> objavaController: // Zahtevaj seznam objav
+activate objavaController
+objavaController --> Objava: vrniObjave()
+activate Objava
+Objava --> objavaController: Seznam objav
+objavaController --> domacaStranView: Seznam objav
+domacaStranView --> Uporabnik: Prikaz seznama objav
+
+Uporabnik --> domacaStranView: //Zahtevaj prikaz izbrane objave
+domacaStranView --> objavaController: //Zahtevaj prikaz izbrane objave
+objavaController --> objavaView: //Zahtevaj prikaz izbrane objave
+activate objavaView
+objavaView --> Uporabnik: Prikaz izbrane objave,\nvključno z obrazcem\n za komentiranje
+Uporabnik --> objavaView: //Zahtevaj dodajanje komentarja s podano vsebino
+objavaView --> objavaController: //Zahtevaj dodajanje komentarja s podano vsebino
+alt Ustrezna vsebina
+objavaController --> Objava: dodajKomentar()
+Objava --> objavaController: vsebina ustvarjenega komentarja
+deactivate Objava
+objavaController --> objavaView: //Zahtevaj prikaz objave s posodobljenim seznamom komentarjev
+objavaView --> Uporabnik: Prikaz objave s posodobljenim seznamom komentarjev
+else Neustrezna vsebina
+objavaController --> objavaView: //Zahtevaj prikaz opozorila o neustreznem vnosu
+deactivate objavaController
+objavaView --> Uporabnik: Prikaz opozorila o neustreznem vnosu
+end
+@enduml

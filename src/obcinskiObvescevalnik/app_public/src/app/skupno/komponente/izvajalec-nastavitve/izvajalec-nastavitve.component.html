@@ -1,0 +1,52 @@
+<div id="izvajalecNastavitve">
+  <p>Nastavitve profila</p>
+
+  <div class="row g-3 podatki">
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="nazivPodjetja" value="{{izvajalec?.nazivPodjetja}}" placeholder="Cestno podjetje">
+        <label for="nazivPodjetja">Naziv podjetja</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="emailPodjetja" value="{{izvajalec?.email}}" placeholder="cestno.podjetje@gmail.com">
+        <label for="emailPodjetja">Email</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="uporabniskoPodjetja" value="{{izvajalec?.uporabniskoIme}}" placeholder="CP">
+        <label for="uporabniskoPodjetja">Uporabniško ime</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="gesloPodjetja" placeholder="cestno123podjetje">
+        <label for="gesloPodjetja">Geslo</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+        <select class="form-select" id="dodajObcinoPod" aria-label="Floating label select example">
+          <option value=null selected></option>
+          <option *ngFor="let obcina of obcine" value="{{obcina._id}}">{{obcina.imeObcine}}</option>
+        </select>
+        <label for="dodajObcinoPod">Dodaj občino delovanja</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-floating">
+        <select class="form-select" id="odstraniObcinoPod" aria-label="Floating label select example">
+          <option value="null" selected></option>
+          <option *ngFor="let obcina of obcineDelovanja" value="{{obcina._id}}">{{obcina.imeObcine}}</option>
+        </select>
+        <label for="odstraniObcinoPod">Odstrani občino delovanja</label>
+      </div>
+    </div>
+    <div class="col-md-12 text-center">
+      <button id="posodobi" type="button" class="btn btn-outline-secondary" (click)="posodobi()">POSODOBI</button>
+    </div>
+  </div>
+
+</div>

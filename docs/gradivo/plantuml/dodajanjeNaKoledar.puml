@@ -1,0 +1,47 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor "Upravnik" as upravnik <<actor>>
+participant "domacaStranView" as home <<boundary>>
+participant "dodajanjeKoledarView" as domacaStran <<boundary>>
+participant "objavaController" as controller <<control>>
+participant "callendarAPI" as api <<api>>
+
+upravnik -> home: // Zahtevaj novo objavo
+activate upravnik
+activate home
+home -> domacaStran: // Izpolnjena polja za dodajanje dogodka
+activate domacaStran
+
+domacaStran -> domacaStran: preveriVnose()
+domacaStran -> controller: dodajDogodek()
+activate controller
+controller -> api: dodajDogodek(zeton, zacetek, konec, ime, lat, lng)
+activate api
+controller <-- api: dogodek: Objava
+deactivate api
+domacaStran <-- controller: void
+deactivate controller
+domacaStran -> domacaStran: sporocilo = "Dogodek dodan"
+
+alt neizpolnjena polja
+domacaStran -> domacaStran: preveriVnose()
+domacaStran -> domacaStran: sporocilo = "Izpolnite polja"
+end
+
+domacaStran -> domacaStran: prikaziSporocilo(sporocilo)
+home <-- domacaStran: Ustvarjen dogodek
+upravnik <-- home: Posodbljen pogled z novim dogodkom
+deactivate domacaStran
+deactivate home
+deactivate upravnik
+@enduml

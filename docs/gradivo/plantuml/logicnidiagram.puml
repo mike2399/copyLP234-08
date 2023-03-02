@@ -1,0 +1,48 @@
+@startuml
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam ArrowColor black
+
+skinparam package {
+  backgroundcolor #e8f5fd
+  backgroundcolor<<subsystem>> white
+  bordercolor #5FB8EC
+}
+
+left to right direction
+
+
+package ObčinskiObveščevalnik <<subsystem>> {
+    package Control <<subsystem>> {
+        package objavaController
+    }
+    package View <<subsystem>> {
+        package Views
+    }
+    package Model <<subsystem>> {
+        package uporabnikController
+        package Database1
+        package Database2
+    }
+
+}
+
+package CalendarAPI
+package leafletAPI
+
+Control -down-> Model: Request Data
+Model .up.> Control: Response Data
+
+View -up--> Control: Send Request
+Control .down.> View: Renders
+
+uporabnikController -down-> Database1: Request Data
+uporabnikController -down-> Database2: Request Data
+Database1 .down.> uporabnikController: Send Data
+Database2 .up.> uporabnikController: Send Data
+
+Control --> leafletAPI
+Control -left-> CalendarAPI
+
+
+@enduml

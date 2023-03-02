@@ -1,0 +1,45 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Uporabnik as "<<actor>>\nPrijavljenObcan, Upravnik"
+participant objavaView as "<<boundary>>\nobjavaView"
+participant objavaController as "<<control>>\nobjavaController"
+participant Novica as "<<entity>>\nNovica"
+participant Administrator as "<<entity>>\nAdministrator"
+
+Uporabnik --> objavaView: //Klik na objavo
+activate objavaView
+objavaView --> objavaController: pridobiObjavo()
+activate objavaController
+objavaController --> Novica: pridobiNovico()
+activate Novica
+Novica --> objavaController: //Prikaz zahtevane objave
+deactivate Novica
+objavaController --> objavaView: //Prikaz zahtevane objave
+objavaView --> Uporabnik: //Prikaz zahtevane objave
+Uporabnik --> objavaView: //Klik gumba za obveščanje o neprimerni vsebini
+
+alt Obveščanje o neprimernem kometarju
+Uporabnik --> objavaView: //Klik na komentar z neprimerno vsebino
+end
+
+objavaView --> Uporabnik: //Obvestilo za potrditev obveščanja
+Uporabnik --> objavaView: //Potrditev obveščanja
+objavaView --> objavaController: posljiObvestilo()
+objavaController --> Administrator: posljiObvestilo()
+activate Administrator
+deactivate Administrator
+objavaController --> objavaView: //Potrditev poslanega obvestila
+deactivate objavaController
+objavaView --> Uporabnik: //Potrditev poslanega obvestila
+deactivate objavaView
+@enduml

@@ -1,0 +1,102 @@
+@startuml
+skinparam backgroundcolor white
+skinparam defaultTextAlignment center
+
+skinparam ArrowColor black
+skinparam artifact {
+  backgroundcolor #e8f5fd
+  bordercolor #5FB8EC
+}
+skinparam node {
+  bordercolor #5FB8EC
+}
+
+left to right direction
+
+node "Odjemalski\nračunalnik" as Odjemalec <<device>> {
+  node "Spletni\nbrskalnik" as Brskalnik <<device>> {
+    artifact "HTML5" as predvajalnik <<artifact>>
+    node "Controller" as controller <<device>>
+    node "Model" as model <<device>>
+    node "View" as view <<device>>
+  }
+
+}
+
+node "Google koledar" as koledar <<external api>>
+
+node "Leaflet" as leaflet <<external api>>
+
+
+database "Relacijska\npodatkovna\nbaza 1" as PB1 <<device>> {
+  card obcan[
+  PrijavljenObcan
+  ----
+  id, ime, priimek,
+  rojstvo, email,
+  uporabniskoIme, geslo,
+  obcine[], predlogi[]
+  ]
+  card upravnik[
+  Upravnik
+  ----
+  id, imeObcine,
+  uporabniskoIme, geslo,
+  email, obcina
+  ]
+  card izvajalec[
+  Izvajalec
+  ----
+  id, nazivPodjetja,
+  uporabniskoIme, geslo,
+  email, obcineDelovanja[],
+  naloge[]
+  ]
+  card admin[
+  Administrator
+  ----
+  id, ime, priimek,
+  rojstvo, email,
+  uporabniskoIme, geslo,
+  obcine[], predlogi[]
+  ]
+}
+database "Relacijska\npodatkovna\nbaza 2" as PB2 <<device>> {
+  card obcina[
+  Občina
+  ----
+  id, imeObcine,
+  pobrateneObcine[],
+  objave[], ankete[],
+  predlogi[]
+  ]
+  card predlog[
+  Predlog
+  ----
+  idUporabnika,
+  predlogNaslov,
+  predlogVsebina,
+  lat, lng
+  ]
+  card objava[
+  Objava
+  ----
+  idObcine, objavaVrsta,
+  objavaNaslov, objavaVsebina,
+  lat, lng
+  ]
+}
+node "Spletni\nstrežnik" as SpletniStreznik <<device>> {
+  artifact "index.hbs" as Index <<artifact>>
+}
+
+model -- PB1 : vrata 1433
+model -- PB2 : vrata 1434
+SpletniStreznik -- Odjemalec : vrata 80
+
+controller -- predvajalnik
+controller -- model
+controller -- view
+controller -- koledar
+controller -- leaflet
+@enduml

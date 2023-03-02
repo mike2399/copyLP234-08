@@ -1,0 +1,24 @@
+<div class="card" style="margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px" *ngFor="let predlog of predlogi">
+  <div class="card-header">
+    {{predlog.naslov}}
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{predlog.vsebina}}</p>
+        <button class="btn" (click)="posreduj(predlog._id)">Posreduj</button>
+    </blockquote>
+  </div>
+</div>
+<div class="card" style="margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px" *ngFor="let predlog of naloge">
+  <div *ngIf="!predlog.opravljeno">
+  <div class="card-header">
+    {{predlog.naslov}}
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{predlog.vsebina}}</p>
+      <button class="btn" (click)="oznaciOpravljeno(predlog)">Označi kot opravljeno</button>
+    </blockquote>
+  </div>
+</div>
+</div>

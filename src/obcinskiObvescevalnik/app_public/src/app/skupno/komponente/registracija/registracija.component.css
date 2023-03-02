@@ -1,0 +1,27 @@
+#vrsticaLogo p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 60px;
+  text-align: center;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#knofPrijava{
+  size: 2ex;
+  color: whitesmoke;
+  margin-top: 100;
+}
+
+.unselected{
+  cursor: pointer;
+}
+
+.selected{
+  background-color: whitesmoke;
+}
+
+.font{
+  color: #333333;
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+}

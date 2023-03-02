@@ -1,0 +1,127 @@
+#gumbNazaj {
+  float: right;
+  margin-right: 60px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+#vsebina {
+  border: 1px solid #333333;
+  border-radius: 5px;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-top: 80px;
+  height: 65%;
+}
+
+#naslov {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 15px;
+  background-color:whitesmoke;
+  border: 1px solid lightgray;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 2vh;
+}
+
+#besedilo {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 15px;
+  background-color:white;
+  border: 1px solid lightgray;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 2.5vh;
+  height: 65%;
+}
+
+#izvajalec, #opravljeno {
+  display: inline-block;
+}
+#txt, #zemljevid {
+  display: inline-block;
+}
+
+#izvajalec {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#opravljeno {
+  float: right;
+  margin-top: 20px;
+  margin-right:20px;
+}
+
+#zemljevid {
+  float: right;
+  height: 100%;
+  width: 40%;
+  margin:auto;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+#txt {
+  max-width: 60%;
+}
+
+@media screen and (min-width: 0px) and (max-width: 750px) {
+  #zemljevid{
+      display: none;
+  }
+  #txt {
+      max-width:100%;
+  }
+}
+
+#glava p {
+  font-family: "Brush Script MT", "Bradley Hand", "Apple Chancery", serif;
+  font-size: 60px;
+  text-align: center;
+  color: #333333;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#glava hr {
+  border-top: 1px solid;
+  margin: 0;
+}
+
+#prijavljen {
+  position: absolute;
+  right: 15px;
+}
+
+#prijavljen a {
+  color: #333333;
+}
+
+#grb {
+  position: absolute;
+  top: 55px;
+  left: 45px;
+}
+
+#grb .circle {
+  z-index: 0;
+  height: 116px;
+  width: 116px;
+  border: 1px solid #333333;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: white;
+}
+
+#grb img {
+  z-index: 1;
+  position: absolute;
+  left: 18px;
+  top: 19px;
+  height: 80px;
+  width: 80px;
+}

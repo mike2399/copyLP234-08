@@ -1,0 +1,43 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor NU as "<<actor>>\nPrijavljenObčan"
+participant domacaStranView as "<<boundary>>\ndomacaStranView"
+participant objavaController as "<<control>>\nobjavaController"
+participant PPView as "<<boundary>>\n predlogView"
+participant PP as "<<boundary>>\n Predlog"
+participant leaflet as "<<api>>\n leaflet"
+
+NU --> domacaStranView: //Klik na gumb Novo obvestilo
+activate domacaStranView
+domacaStranView --> objavaController: //Zahtevaj prikaz obrazca za predlog
+activate objavaController
+objavaController --> PPView: //Zahtevaj prikaz obrazca za predlog
+activate PPView
+objavaController --> leaflet: //Zahtevaj prikaz zemljevida
+leaflet --> PPView: prikaziZemljevid()
+PPView --> NU: Prikazan obrazec za predlog
+NU --> PPView: Vnešena polja predlog
+NU --> leaflet: Označena polja na zemljevidu
+leaflet --> objavaController: vrniLokacijo()
+PPView --> objavaController: // posredovana vnesena polja
+alt Pravileno izpolnjena polja
+objavaController --> PP: ustvariPredlog() 
+PP --> objavaController: Podatki o predlogu /pritožbi
+objavaController --> NU: Prikazano sporočilo o uspešno oddanem predlogu
+
+else Napačeno izpolnjena polja
+objavaController --> PPView: //Zahtevaj prikaz opozorila o neustreznem besedilu
+PPView --> NU: Prikazano sporočilo o napaki
+deactivate PPView
+end
+@enduml

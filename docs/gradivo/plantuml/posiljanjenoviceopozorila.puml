@@ -1,0 +1,42 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Upravnik as "<<actor>>\nUpravnik"
+participant domacaStranView as "<<boundary>>\ndomacaStranView"
+participant objavaController as "<<control>>\nobjavaController"
+participant dodajanjeNOView as "<<boundary>>\nNovicaView / OpozoriloView"
+participant NO as "<<entity>>\nNovica / Opozorilo"
+Upravnik --> domacaStranView: //Klik na gumb nova objava
+activate domacaStranView
+domacaStranView --> Upravnik: Prikaz spustnega menija za izbiro vrste objave
+Upravnik --> domacaStranView: //Izbor možnosti za dodajanje novice/opozorila
+domacaStranView --> objavaController: //Zahtevaj prikaz obrazca za ustvarjanje novice/opozorila
+activate objavaController
+objavaController --> dodajanjeNOView: //Zahtevaj prikaz obrazca za ustvarjanje novice/opozorila
+activate dodajanjeNOView
+dodajanjeNOView --> Upravnik: Prikazan obrazec za ustvarjanje novice/opozorila
+
+Upravnik --> dodajanjeNOView: Vnešene podrobnosti novo novico/opozorilo
+dodajanjeNOView --> objavaController: dodajNovico() / dodajOpozorilo()
+alt Ustrezen vnos
+objavaController --> NO: ustvariNovico() / ustvariOpozorilo()
+activate NO
+NO --> objavaController: Podatki o novi novici /opozorilu
+deactivate NO
+objavaController --> domacaStranView: Ustvarjena novica / opozorilo
+domacaStranView --> Upravnik: Prikazana domača stran, ki vsebuje novo novico / opozorilo
+else Neustrezno besedilo
+objavaController --> dodajanjeNOView: //Zahtevaj prikaz opozorila o neustreznem besedilu
+dodajanjeNOView --> Upravnik: Prikazano opozorilo o neustreznem besedilu
+deactivate dodajanjeNOView
+end
+@enduml

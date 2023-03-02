@@ -1,0 +1,66 @@
+@startuml
+hide footbox
+
+skinparam backgroundcolor transparent
+skinparam defaultTextAlignment center
+skinparam actorBorderColor black
+skinparam actorBackgroundColor white
+skinparam arrowColor black  
+skinparam sequenceLifeLineBorderColor #5FB8EC
+skinparam sequenceParticipantBorderColor #5FB8EC
+skinparam sequenceParticipantBackgroundColor white
+
+actor Administrator <<actor>>
+participant "domacaStranView" as domacaStran <<boundary>>
+participant "uporabnikController" as controller <<control>>
+participant "PrijavljenObcan" as obcan <<entity>>
+
+Administrator -> domacaStran: // Zahtevaj podokno z uporabniki
+activate Administrator
+activate domacaStran
+domacaStran -> controller: // Zahtevaj seznam uporabnikov
+activate controller
+controller -> obcan: pridobiVse()
+activate obcan
+controller <-- obcan: uporabniki: prijavljenUporabnik[]
+deactivate obcan
+domacaStran <-- controller: // Seznam uporabnikov
+deactivate controller
+Administrator <-- domacaStran: // Prikazan seznam vseh uporabnikov
+deactivate domacaStran
+deactivate Administrator
+
+
+Administrator -> domacaStran: // Novo iskanje v uporabniškem oknu
+activate Administrator
+
+loop za vsako posamezno iskanje
+activate domacaStran
+domacaStran -> controller: // Vnesi iskalni niz
+activate controller
+controller -> obcan: iskanje(iskalniNiz)
+activate obcan
+controller <-- obcan: uporabniki: prijavljenUporabnik[]
+deactivate obcan
+domacaStran <-- controller: Seznam ujemajočih uporabnikov
+deactivate controller
+end
+
+
+alt neuspešno iskanje
+
+domacaStran -> controller: // Vnesi iskalni niz
+activate controller
+controller -> obcan: iskanje(iskalniNiz)
+activate obcan
+controller <-- obcan: uporabniki: NULL
+deactivate obcan
+domacaStran <-- controller: Prazen seznam
+deactivate controller
+
+end
+
+Administrator <-- domacaStran: // Prikazan seznam najdenih uporabnikov
+deactivate domacaStran
+deactivate Administrator
+@enduml

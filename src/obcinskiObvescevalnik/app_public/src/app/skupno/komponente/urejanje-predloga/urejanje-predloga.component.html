@@ -1,0 +1,61 @@
+<div id="zgoraj">
+    <p>Občinski Obveščevalnik</p>
+    <hr />
+  </div>
+
+  <h5 class="card-title font font-weight-bold display-3">Urejanje predloga</h5>
+
+
+<div class="container">
+
+    <form>
+        <div>
+        <label for="naslovObvestila">Naslov predloga</label><br>
+        <input class="form-control" type="text" id="naslov" name="naslov" value="{{predlog?.naslov}}"><br>
+        <label for="lname">Vsebina</label><br>
+        <textarea class="form-control" name="vsebina" id="vsebina">{{predlog?.vsebina}}</textarea><br>
+        <div id="zemljevid">Zemljevid
+
+          <div class="map-container">
+            <div class="map-frame">
+              <div style="height: 200px;" id="map"></div>
+            </div>
+          </div>
+
+        </div>
+
+        </div>
+    </form>
+
+    <div id="gumbi">
+        <button style="float: left;"
+        id="btnNazaj"
+        class="border mt-3 btn btn-secondary"
+        type="submit"
+        (click)="btnNazaj()"
+      >
+        Nazaj
+      </button>
+      <button style="float: right;"
+      id="btnIzbrisi"
+      class="border mt-3 btn btn-secondary"
+      type="submit"
+      (click)="btnIzbrisi()"
+    >
+      Izbriši
+    </button>
+    <button style="float: right;"
+    id="btnPosodobi"
+    class="border mt-3 btn btn-secondary"
+    type="submit"
+    (click)="btnPosodobi()"
+  >
+    Posodobi
+  </button>
+    </div>
+
+</div>
+
+
+  
+
